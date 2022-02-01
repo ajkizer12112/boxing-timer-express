@@ -9,13 +9,14 @@ exports.addProfile = asyncHandler(async (req, res, next) => {
 })
 
 exports.getProfiles = asyncHandler(async (req, res, next) => {
-     const query = {}
+     let query = {}
+
      const profiles = await Profile.find(query);
      res.json({ success: true, data: profiles })
 })
 
 exports.editProfile = asyncHandler(async (req, res, next) => {
-     let profile = await Profile.findById(req.params.id);
+     let profile = await Profile.findOne({ account_id: req.user.id });
      profile = Object.assign(profile, req.body);
      await profile.save(); res.json({ success: true, data: profile })
 })

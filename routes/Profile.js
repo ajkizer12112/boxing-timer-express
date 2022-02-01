@@ -7,9 +7,9 @@ const router = express.Router();
 router.route("/")
     .get(getProfiles)
     .post(protect, addProfile)
+    .put(protect, editProfile)
 router.route("/:id")
     .get(getProfileById)
-    .put(protect, editProfile)
     .delete(protect, removeProfile)
 
 module.exports = router;

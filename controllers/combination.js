@@ -8,7 +8,8 @@ exports.addCombination = asyncHandler(async (req, res, next) => {
 })
 
 exports.getCombinations = asyncHandler(async (req, res, next) => {
-     const query = {}
+     let query = {}
+     query.account_id = req.user.id
      const combinations = await Combination.find(query);
      res.json({ success: true, data: combinations })
 })
