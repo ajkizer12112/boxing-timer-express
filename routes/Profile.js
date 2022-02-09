@@ -5,7 +5,7 @@ const { protect } = require("../middleware/auth")
 const router = express.Router();
 
 router.route("/")
-    .get(getProfiles)
+    .get(protect, getProfiles)
     .post(protect, addProfile)
     .put(protect, editProfile)
 router.route("/:id")
