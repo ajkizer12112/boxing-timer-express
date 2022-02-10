@@ -13,5 +13,3 @@ router.route("/:id")
     .delete(protect, removeProfile)
 
 module.exports = router;
-
-//testing
