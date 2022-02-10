@@ -15,6 +15,8 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 
 const app = express();
+//enable CORS
+app.use(cors());
 
 // Body Parser
 app.use(express.json());
@@ -41,8 +43,8 @@ app.use(limiter);
 
 app.use(hpp());
 
-//enable CORS
-app.use(cors());
+
+
 
 
 //dev logging middleware
