@@ -22,7 +22,7 @@
     "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
     "node-geocoder": "^3.28.0",
-    "openssl": "^1.1.0",
+    "openssl": "^2.0.0",
     "react-router-dom": "^6.2.1",
     "xss-clean": "^0.1.1"
   },
