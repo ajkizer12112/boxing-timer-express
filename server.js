@@ -10,7 +10,7 @@ const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
-const auth = require('./routes/user');
+const user = require('./routes/user');
 const profile = require("./routes/profile")
 
 dotenv.config({ path: "./config/config.env" });
@@ -61,7 +61,7 @@ app.use(errorHandler);
 
 //MOUNT ROUTERS
 // ex: app.use("/api/v1/tasklists", taskList);
-app.use("/api/v1/auth", auth)
+app.use("/api/v1/auth", user)
 app.use("/api/v1/profiles", profile)
 
 const PORT = process.env.PORT || 5000;
