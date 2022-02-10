@@ -19,32 +19,33 @@ exports.getProfiles = asyncHandler(async (req, res, next) => {
 
 exports.editProfile = asyncHandler(async (req, res, next) => {
      let profile = await Profile.findOne({ account_id: req.user.id });
+     console.log({ request: req.user.id })
+     console.log(profile);
      if (req.body.roundsCompleted) {
-          req.body.roundsCompleted = profile.roundsCompleted + req.body.roundsCompleted
-     }
+          let roundscompleted = 0
+          if (profile.roundsCompleted) roundscompleted = profile.roundsCompleted
 
-     console.log(req.body)
+          req.body.roundsCompleted = roundscompleted + req.body.roundsCompleted
+     }
 
      if (req.body.maneuverTracker) {
           let newData = {};
           const keys = Object.keys(profile.maneuverTracker);
-
-          console.log(keys)
           keys.forEach(key => {
                newData[key] = profile.maneuverTracker[key] + req.body.maneuverTracker[key]
           });
 
-          console.log({ body: req.body.maneuverTracker })
-
           req.body.maneuverTracker = newData;
      }
+
      profile = Object.assign(profile, req.body);
      await profile.save();
      res.json({ success: true, data: profile })
 })
 
 exports.getProfileById = asyncHandler(async (req, res, next) => {
-     const profile = await Profile.findOne({ account_id: req.params.id })
+     let profile = await Profile.findOne({ account_id: req.params.id })
+     if (!profile) profile = await Profile.create({ account_id: req.params.id })
      res.json({ success: true, data: profile })
 })
 
