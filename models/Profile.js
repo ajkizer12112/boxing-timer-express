@@ -75,10 +75,6 @@ const Profile = mongoose.Schema({
             type: Number,
             default: 0
         },
-        "Pivot": {
-            type: Number,
-            defualt: 0
-        }
     }
 })
 

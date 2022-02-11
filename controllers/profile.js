@@ -19,8 +19,6 @@ exports.getProfiles = asyncHandler(async (req, res, next) => {
 
 exports.editProfile = asyncHandler(async (req, res, next) => {
      let profile = await Profile.findOne({ account_id: req.user.id });
-     console.log({ request: req.user.id })
-     console.log(profile);
      if (req.body.roundsCompleted) {
           let roundscompleted = 0
           if (profile.roundsCompleted) roundscompleted = profile.roundsCompleted
