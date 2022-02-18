@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node server",
-    "createEntity": "node utils/createEntity.js"
+    "createEntity": "node utils/createEntity.js",
+    "dev": "nodemon server"
   },
   "dependencies": {
     "axios": "^0.24.0",

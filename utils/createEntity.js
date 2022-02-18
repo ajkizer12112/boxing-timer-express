@@ -9,7 +9,8 @@ const finish = (err, path) => {
 }
 
 [modelDir, controllerDir, routeDir].forEach(item => {
-    if (!fs.existsSync(item)) fs.mkdir(item, (err) => finish(err, item))
+    if (!fs.existsSync(item))
+        fs.mkdir(item, (err) => finish(err, item))
 })
 
 const genModel = (modelStream, entityNameCapitalized) => {
@@ -37,7 +38,7 @@ const genControllers = (controllerStream, entityName, entityNameCapitalized) => 
         `exports.edit${entityNameCapitalized} = asyncHandler(async (req, res, next) => {\n`,
         `     let ${entityName} = await ${entityNameCapitalized}.findById(req.params.id);\n`,
         `     ${entityName} = Object.assign(${entityName}, req.body);\n`,
-        `     await ${entityName}.save();`,
+        `     await ${entityName}.save();\n`,
         `     res.json({success: true, data: ${entityName}})\n`,
         `})\n\n`,
         `exports.get${entityNameCapitalized}ById = asyncHandler(async (req, res, next) => {\n`,

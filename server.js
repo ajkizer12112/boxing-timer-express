@@ -11,7 +11,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 const user = require('./routes/user');
-const profile = require("./routes/profile")
+const profile = require("./routes/profile");
+const completedWorkout = require("./routes/completedWorkout")
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -63,6 +64,7 @@ app.use(errorHandler);
 // ex: app.use("/api/v1/tasklists", taskList);
 app.use("/api/v1/auth", user)
 app.use("/api/v1/profiles", profile)
+app.use("/api/v1/completedWorkouts", completedWorkout)
 
 const PORT = process.env.PORT || 5000;
 
