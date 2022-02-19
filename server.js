@@ -65,7 +65,6 @@ app.use(errorHandler);
 app.use("/api/v1/auth", user)
 app.use("/api/v1/profiles", profile)
 app.use("/api/v1/completedWorkouts", completedWorkout)
-
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(

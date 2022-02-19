@@ -1,5 +1,6 @@
 const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+const CompletedWorkout = require("../models/CompletedWorkout");
 const Profile = require("../models/Profile")
 
 exports.addProfile = asyncHandler(async (req, res, next) => {
@@ -51,4 +52,8 @@ exports.removeProfile = asyncHandler(async (req, res, next) => {
      await Profile.findByIdAndRemove(req.params.id);
      res.json({ success: true })
 })
+
+
+
+
 
