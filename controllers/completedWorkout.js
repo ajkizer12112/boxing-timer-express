@@ -8,6 +8,7 @@ const CompletedWorkout = require("../models/CompletedWorkout")
 exports.addCompletedWorkout = asyncHandler(async (req, res, next) => {
      req.body.account_id = req.user.id
      const completedWorkout = await CompletedWorkout.create(req.body);
+     console.log({ completedWorkout })
      res.json({ success: true, data: completedWorkout })
 })
 
@@ -26,10 +27,11 @@ exports.getCompletedWorkouts = asyncHandler(async (req, res, next) => {
      today.setHours(0)
      today.setMinutes(0)
      today.setSeconds(0)
+     today.setMilliseconds(0);
 
      let { endDate, startDate } = req.query;
-     endDate = parseInt(endDate, 10) + 1
-     startDate = parseInt(startDate, 10)
+     endDate = parseInt(endDate, 10) - 1
+     startDate = parseInt(startDate, 10) - 1
 
 
      const earliestDate = today.getTime() - (24 * 60 * 60 * 1000) * endDate

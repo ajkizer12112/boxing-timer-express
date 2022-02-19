@@ -12,7 +12,8 @@ const CompletedWorkout = mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now(),
+        index: 1
     },
 })
 
