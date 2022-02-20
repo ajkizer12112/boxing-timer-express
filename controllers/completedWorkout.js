@@ -2,40 +2,52 @@ const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, ne
 
 const CompletedWorkout = require("../models/CompletedWorkout")
 
+const queryPropExists = (queryObj, prop) => {
+     return queryObj[prop]
+}
+
+const genToday = () => {
+     let today = new Date();
+     today.setHours(0);
+     today.setMinutes(0);
+     today.setSeconds(1);
+     today.setMilliseconds(0);
+     return today
+}
+
+const getDateInMilliseconds = (today, days) => {
+
+     const hoursInDay = 24;
+     const minutesInHour = 60;
+     const secondsInMinute = 60;
+     const millisecondsInSeconds = 1000;
+
+     const dateInMilliseconds = today.getTime() - hoursInDay * minutesInHour * secondsInMinute * millisecondsInSeconds * days
+
+     return dateInMilliseconds
+}
+
 
 
 
 exports.addCompletedWorkout = asyncHandler(async (req, res, next) => {
      req.body.account_id = req.user.id
      const completedWorkout = await CompletedWorkout.create(req.body);
-     console.log({ completedWorkout })
      res.json({ success: true, data: completedWorkout })
 })
 
 exports.getCompletedWorkouts = asyncHandler(async (req, res, next) => {
      let query = { account_id: req.user.id }
 
-     if (!req.query.endDate) {
-          req.query.endDate = 7
-     }
+     if (!queryPropExists(req.query, "endDate")) req.query.endDate = 7
+     if (!queryPropExists(req.query, "startDate")) req.query.startDate = 0
 
-     if (!req.query.startDate) {
-          req.query.startDate = 0
-     }
-
-     const today = new Date();
-     today.setHours(0)
-     today.setMinutes(0)
-     today.setSeconds(0)
-     today.setMilliseconds(0);
-
+     let today = genToday();
      let { endDate, startDate } = req.query;
-     endDate = parseInt(endDate, 10) - 1
-     startDate = parseInt(startDate, 10) - 1
 
+     const earliestDate = getDateInMilliseconds(today, parseInt(endDate, 10));
+     const latestDate = getDateInMilliseconds(today, parseInt(startDate, 10))
 
-     const earliestDate = today.getTime() - (24 * 60 * 60 * 1000) * endDate
-     const latestDate = today.getTime() - (24 * 60 * 60 * 1000) * startDate
      query.createdAt = { $gte: earliestDate, $lte: latestDate }
 
      const completedWorkouts = await CompletedWorkout.find(query);
