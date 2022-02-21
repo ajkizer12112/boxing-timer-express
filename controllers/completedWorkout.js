@@ -27,9 +27,6 @@ const getDateInMilliseconds = (today, days) => {
      return dateInMilliseconds
 }
 
-
-
-
 exports.addCompletedWorkout = asyncHandler(async (req, res, next) => {
      req.body.account_id = req.user.id
      const completedWorkout = await CompletedWorkout.create(req.body);
